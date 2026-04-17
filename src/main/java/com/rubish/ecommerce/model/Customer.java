@@ -1,4 +1,4 @@
-package com.rubish.Ecommerce.model;
+package com.rubish.ecommerce.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;

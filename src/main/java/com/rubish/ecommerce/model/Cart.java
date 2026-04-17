@@ -1,9 +1,11 @@
-package com.rubish.Ecommerce.model;
+package com.rubish.ecommerce.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "cart")
@@ -13,11 +15,12 @@ import lombok.NoArgsConstructor;
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int cart_id;
+    private Long cart_id;
 
     @OneToOne
-    @JoinColumn(name = "customerfk_id",nullable = false)
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
-
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    private List<CartItem> cartItems;
 }
