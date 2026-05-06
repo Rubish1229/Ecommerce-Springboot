@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/signup")
-public class CustomerController {
+public class SignupController {
     @GetMapping
     public String showSignupPage(){
-        return "signuplogin/home"; // your HTML file name
+        return "signupLogin/customerSignup"; // your HTML file name
     }
 }
