@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("anonymous")
 public class AnonymousHomeController {
 
-    @GetMapping
+    @GetMapping("home")
     public String openFirstPage(){
-        return "anonymous/AnonymousPage";
+        return "anonymous/anonymousPage";
     }
 }
