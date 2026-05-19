@@ -16,4 +16,9 @@ public class NavController {
     public String showLoginPage(){
         return "signupLogin/customerLogin"; // your HTML file name
     }
+
+    @GetMapping("leftSidebar")
+    public String openSidebar(){
+        return "fragments/sidebar";
+    }
 }
