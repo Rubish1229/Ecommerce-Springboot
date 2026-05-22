@@ -21,6 +21,7 @@ public class Category {
     @Column(name = "category_name",length = 50)
     private String categoryName;
 
+
     @OneToMany(mappedBy = "category",fetch = FetchType.LAZY)
     private List<Product> products;
 }

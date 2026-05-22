@@ -1,34 +1,34 @@
 package com.rubish.ecommerce.controller;
 
-import com.rubish.ecommerce.dto.ProductDto;
-import com.rubish.ecommerce.model.Product;
+import com.rubish.ecommerce.service.CategoryService;
 import com.rubish.ecommerce.service.ProductService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@RestController
-@RequestMapping("/api/products")
+@Controller
+@RequestMapping("/product")
 public class ProductController {
+    private final CategoryService categoryService;
+    private final ProductService productService;
 
-    private ProductService productService;
-
-    public ProductController(ProductService productService) {
+    public ProductController(CategoryService categoryService, ProductService productService) {
+        this.categoryService = categoryService;
         this.productService = productService;
     }
 
-
-    @PostMapping(consumes = "multipart/form-data")
-    public ResponseEntity<?> createProduct(@RequestPart("product")ProductDto productDto,
-                                           @RequestPart("image")MultipartFile file){
-   try {
-       Product savedProduct = productService.saveProduct(productDto, file);
-       return ResponseEntity.ok(savedProduct);
-   }catch (Exception e){
-        return ResponseEntity.status(500).body("Error saving product");
-   }
-
+    @GetMapping("/add")
+    public String addProduct(Model model){
+        model.addAttribute("categories",categoryService.getAllCategories());
+        return "sidebar/addProduct";
     }
 
-
+    @GetMapping("/fetchAllProducts")
+    public String getAllProduct(Model model){
+        model.addAttribute("productList",productService.getAllProduct());
+        return "customer/products";
+    }
 }
+
+

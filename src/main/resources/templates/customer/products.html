@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Products</title>
+
+    <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            width: 250px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 10px;
+        }
+
+        .price {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card" th:each="product : ${productList}">
+
+        <img th:src="@{${product.imageUrl}}" alt="product">
+
+        <div class="card-body">
+
+            <h3 th:text="${product.productName}"></h3>
+
+            <p th:text="${product.tagName}"></p>
+
+            <p class="price"
+               th:text="'Rs ' + ${product.productPrice}"></p>
+
+<!--            <p th:text="${product.productDescription}"></p>-->
+
+            <small th:text="'Category : '+${product.categoryName}"></small>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

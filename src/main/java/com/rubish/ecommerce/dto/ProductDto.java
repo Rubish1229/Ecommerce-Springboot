@@ -21,5 +21,6 @@ public class ProductDto {
     private int stockQuantity;
 
     private Long categoryId;
+    private String categoryName;
 
 }
