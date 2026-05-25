@@ -12,7 +12,7 @@
 
 <div class="signup-container" style="background-color: rgb(247, 247, 247);">
     <h2>Customer Login</h2>
-    <form action="#" method="POST">
+    <form th:action="@{/customer/login}" method="POST">
 
 
         <input type="email" name="email" placeholder="Email" required>
@@ -21,6 +21,7 @@
 
         <button type="submit">Login </button>
     </form>
+    <div th:if="${error}" th:text="${error}" style="color: red; text-align: center"> </div>
 </div>
 </nav>
 </body>

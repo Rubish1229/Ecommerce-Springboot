@@ -34,10 +34,19 @@
             font-weight: bold;
         }
     </style>
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
 </head>
 
 <body>
-
+<div th:replace="fragments/navbar :: navbar"></div>
+<div class="main-div">
+    <div class="left-div">
+<div th:replace="fragments/sidebar:: sidebar"></div>
+    </div>
+    <div class="right-div">
 <div class="container">
 
     <div class="card" th:each="product : ${productList}">
@@ -48,19 +57,21 @@
 
             <h3 th:text="${product.productName}"></h3>
 
-            <p th:text="${product.tagName}"></p>
+            <small th:text="'Category : '+${product.categoryName}"></small>
+
+
 
             <p class="price"
                th:text="'Rs ' + ${product.productPrice}"></p>
 
 <!--            <p th:text="${product.productDescription}"></p>-->
 
-            <small th:text="'Category : '+${product.categoryName}"></small>
+            <p th:text="'Tags : '+${product.tagName}"></p>
 
         </div>
     </div>
-
 </div>
-
+</div>
+</div>
 </body>
 </html>

@@ -35,6 +35,10 @@ public class Customer {
     @Column(name = "contact",nullable = false,length = 10)
     private String contact;
 
+    @Column(name = "gender",nullable = false,length = 10)
+    private String gender;
+
+
     @Column(name = "address",nullable = false,length = 30)
     private String address;
 

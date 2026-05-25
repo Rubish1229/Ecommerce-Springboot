@@ -82,4 +82,7 @@ public class ProductService {
         }).toList();
     }
 
+                    public void getProductById(Long id) {
+                        productRepo.findById(id);
+                    }
 }
