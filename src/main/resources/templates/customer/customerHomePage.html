@@ -62,7 +62,9 @@
 
         <div class="container">
 
-            <div class="card" th:each="product : ${productList}" th:href="@{customer/DrillProduct}">
+            <a th:each="product:${productList}"
+                    th:href="@{/customer/productDetail/{id}(id=${product.productId})}" style="text-decoration: none;">
+            <div class="card">
 
                 <img th:src="@{${product.imageUrl}}" alt="product">
 
@@ -83,6 +85,7 @@
 
                 </div>
             </div>
+            </a>
         </div>
     </div>
 </div>

@@ -1,10 +1,69 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
-$END$
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<h2>Payment card</h2>
+
+<form method="post" th:action="@{/customer/paymentCard}">
+
+
+  <div class="product-container">
+
+
+    <div class="product-image">
+      <img th:src="@{${productList.imageUrl}}" alt="product image">
+    </div>
+
+    <div class="product-info">
+      <h2 th:text="${productList.productName}"></h2>
+      <small th:text="'Category: ' + ${productList.categoryName}"></small>
+      <p th:text="'Tags: ' + ${productList.tagName}"></p>
+      <hr>
+
+      <div class="size-selector">
+        <p th:href="'Size : '+${productList.productSize()}"></p>
+      </div>
+      <div class="quantity-selector">
+        <span th:text="'Quantity : '+${productList.stockQuantity}"></span>
+
+      </div>
+      <p class="price" th:text="'Rs ' + ${productList.productPrice()}"></p>
+
+      <hr>
+
+      <div>
+        <p>Select payment option : </p>
+        <select>
+        <option value="cash">Cash on delivery</option>
+        <option value="online">Online payment</option>
+
+        </select>
+
+      </div>
+
+
+
+      <button class="pay-btn" th:href="@{/customer/customerHomePage}">Done</button>
+      <button class="pay-btn" th:href="@{/customer/customerHomePage}">Cancel</button>
+
+    </div>
+  </div>
+
+
+  <button><a href="#">Done</a> </button>
+</form>
+
+
+
 </body>
 </html>

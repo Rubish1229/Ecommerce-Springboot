@@ -14,6 +14,7 @@
         height: 20px;
         padding: 5px;
         border-radius: 5px;
+
     }
     .icon{
         height: 20px;
@@ -31,6 +32,14 @@
         width: 25px;
         color: white;
     }
+
+    .history{
+        display: flex;
+        align-items: center;
+
+    }
+
+
 
 
 </style>
@@ -50,30 +59,28 @@
 
 
 
-            <form class="custom-search" role="search" style="margin-left: 70px;">
-                <input type="search" placeholder="Search" aria-label="Search" style="width: 700px; height: 40px;" />
-                <button class="search-btn" type="submit" style="width: 100px; height: 45px; background-color: #FF9900">Search</button>
+            <form class="custom-search" role="search" style="margin-left: 250px; margin-top: 10px;">
+                <input type="search" placeholder="Search" aria-label="Search" style="width: 700px; height: 45px;  border-radius: 5px; padding-left: 7px;" />
+                <button class="search-btn" type="submit" style="width: 100px; height: 45px; background-color: #FF9900; border-radius: 7px;" >Search</button>
             </form>
 
 
     </div>
     </div>
-        <div class="cart">
-            <img src="/images/cart.png" class="cart-img" alt="cart-img" style="width: 100px; height: 50px;">
+
+        <div class="history"> <a th:href="@{/customer/history}" style="margin-right: 5px; text-decoration: none; color: white;"><i class="fa-solid fa-user"></i> <b>History</b></a></div>
+
+        <div class="cart" style="margin-right: 5px;">
+           <a th:href="@{/customer/cart}"> <img src="/images/cart.png" class="cart-img" alt="cart-img" style="width: 100px; height: 50px;" ></a>
         </div>
 
-        <div class="btns">
-            <a href="/navbar/signup">
 
-                <button type="button" class="btn btn-light">Signup</button>
 
-                </a>
-        </div>
         <div class="vertical-line"> | </div>
         <div class="vertical-line"> | </div>
-        <div class="btns">
+        <div class="btns" style="margin-right: 10px;">
             <a href="/navbar/login">
-                <button type="button" class="btn btn-light" style="margin-right: 10px;">Login</button>
+                <button type="button" class="btn btn-light" style="margin-right: 10px; background-color: #B12704; color:white; border: none;">Logout</button>
             </a>
         </div>
 </nav>

@@ -1,14 +1,13 @@
 package com.rubish.ecommerce.controller;
 
 import com.rubish.ecommerce.dto.CustomerDto;
-import com.rubish.ecommerce.model.Customer;
+import com.rubish.ecommerce.dto.ProductDto;
 import com.rubish.ecommerce.repository.CustomerRepo;
 import com.rubish.ecommerce.service.CustomerService;
 import com.rubish.ecommerce.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/customer")
@@ -48,10 +47,28 @@ public class CustomerController {
         return "customer/customerHomePage";
     }
 
+
     @GetMapping("/productDetail/{id}")
     public String getProductById(@PathVariable Long id,Model model){
-        productService.getProductById(id);
-        return "customer/productdetail";
+       ProductDto productDto= productService.getProductById(id);
+        model.addAttribute("product",productDto);
+        return "customer/productDetail";
     }
 
+    @PostMapping("/payment")
+    public String paymentCardPage(@PathVariable Long id,Model model){
+        ProductDto productDto=productService.getProductById(id);
+        model.addAttribute("productList",productDto);
+        return "customer/paymentCard";
+    }
+
+    @GetMapping("/history")
+    public String openHistoryPage(){
+        return "customer/history";
+    }
+
+    @GetMapping("/cart")
+    public String openCartPage(){
+        return "customer/cart";
+    }
 }

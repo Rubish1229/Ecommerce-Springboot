@@ -45,6 +45,7 @@ public class ProductService {
         product.setProductDescription(productDto.getProductDescription());
         product.setProductPrice(productDto.getProductPrice());
         product.setStockQuantity(productDto.getStockQuantity());
+        product.setProductSize(productDto.getProductSize());
         product.setCategory(category);
 
 
@@ -57,6 +58,7 @@ public class ProductService {
         productDto1.setProductDescription(product.getProductDescription());
         productDto1.setProductPrice(product.getProductPrice());
         productDto1.setStockQuantity(product.getStockQuantity());
+        productDto1.setProductSize(productDto.getProductSize());
         productDto1.setCategoryId(productDto.getCategoryId());
         productDto1.setCategoryName(productDto.getCategoryName());
 
@@ -74,6 +76,7 @@ public class ProductService {
                             productDto.setProductDescription(product.getProductDescription());
                             productDto.setProductPrice(product.getProductPrice());
                             productDto.setStockQuantity(product.getStockQuantity());
+                            productDto.setProductSize(product.getProductSize());
 
                             productDto.setCategoryId(product.getCategory().getCategoryId());
                             productDto.setCategoryName(product.getCategory().getCategoryName());
@@ -82,7 +85,22 @@ public class ProductService {
         }).toList();
     }
 
-                    public void getProductById(Long id) {
-                        productRepo.findById(id);
+                    public ProductDto getProductById(Long id) {
+                       Product product=productRepo.findById(id).orElseThrow(()-> new RuntimeException("Product not found!"));
+
+                       ProductDto productDto=new ProductDto();
+                       productDto.setProductId(product.getProductId());
+                       productDto.setProductName(product.getProductName());
+                       productDto.setProductPrice(product.getProductPrice());
+                       productDto.setProductDescription(product.getProductDescription());
+                       productDto.setTagName(product.getTagName());
+                       productDto.setImageUrl(product.getImageUrl());
+                       productDto.setStockQuantity(product.getStockQuantity());
+                       productDto.setProductSize(product.getProductSize());
+
+                        productDto.setCategoryId(product.getCategory().getCategoryId());
+                        productDto.setCategoryName(product.getCategory().getCategoryName());
+
+                        return productDto;
                     }
 }

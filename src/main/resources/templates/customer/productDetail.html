@@ -1,9 +1,136 @@
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Drill Product</title>
-</head>
+    <title th:text="${product.productName}">Product Detail</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .product-container {
+            display: flex;
+            gap: 40px;
+            padding: 40px;
+            width: 90%;
+            margin-top: 50px;
+            margin-left: 85px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);        }
+        .product-image img {
+            width: 400px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .product-info {
+            flex: 1;
+        }
+        .price {
+            color: #B12704;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .buy-btn {
+            background-color: #FF9900;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 50%;
+            margin-bottom: 10px;
+            margin-left: 250px;
+        }
+        .buy-btn:hover {
+            background-color: #e68a00;
+        }
+        .cart-btn {
+            background-color: #FFD814;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 50%;
+            margin-left: 250px;
 
+        }
+        .cart-btn:hover {
+            background-color: #f0c800;
+        }
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .quantity-selector button {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            font-size: 18px;
+            cursor: pointer;
+            background: white;
+        }
+        .quantity-selector span {
+            font-size: 18px;
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
 <body>
-<h2>Drill page</h2>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="product-container">
+
+
+    <div class="product-image">
+        <img th:src="@{${product.imageUrl}}" alt="product image">
+    </div>
+
+    <div class="product-info">
+        <h2 th:text="${product.productName}"></h2>
+        <small th:text="'Category: ' + ${product.categoryName}"></small>
+        <p th:text="'Tags: ' + ${product.tagName}"></p>
+        <hr>
+
+            <div class="size-selector">
+                <div style="display: flex; gap: 15px; margin-top: 5px;">
+                    <p> Size : </p>
+                    <label th:each="size : ${#strings.arraySplit(product.productSize, ',')}">
+                        <input type="radio"
+                               name="productSize"
+                               th:value="${size.trim()}">
+
+                        <span th:text="${size.trim()}"></span>
+                    </label>
+                </div>
+            </div>
+        <p class="price" th:text="'Rs ' + ${product.productPrice}"></p>
+        <p th:text="${product.productDescription}"></p>
+        <hr>
+
+
+        <div class="quantity-selector">
+            <span>Quantity:</span>
+            <button onclick="changeQty(-1)">-</button>
+            <span id="qty">1</span>
+            <button onclick="changeQty(1)">+</button>
+        </div>
+
+
+        <a th:href="@{/api/payment/{id}(id=${productList.productId})}" style="text-decoration: none; color: black"> <button class="buy-btn">Buy Now</button></a>
+        <a href="#"><button class="cart-btn">Add to Cart</button></a>
+    </div>
+</div>
+
+<script>
+    function changeQty(change) {
+        const qtyEl = document.getElementById('qty');
+        let qty = parseInt(qtyEl.innerText);
+        qty += change;
+        if (qty < 1) qty = 1;
+        qtyEl.innerText = qty;
+    }
+</script>
 </body>
 </html>

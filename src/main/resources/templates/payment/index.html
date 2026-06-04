@@ -7,6 +7,8 @@
   <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
+
+<button id="cashondelivery-button">Cash On Delivery</button>
 <button id="checkout-button">Pay Now</button>
 
 <script>
@@ -16,6 +18,11 @@
     fetch("http://localhost:8011/api/payment/create-checkout-session", { // Replace with your backend URL
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        customer_id:1,
+        product_id:3,
+        quantity:1,
+      })
     })
             .then(response => response.json())
             .then(data => {

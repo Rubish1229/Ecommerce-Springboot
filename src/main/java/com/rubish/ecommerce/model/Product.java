@@ -34,12 +34,15 @@ public class Product {
     @Column(name = "product_desc",columnDefinition = "TEXT")
     private String productDescription;
 
+    @Column(name = "product_size",nullable = false,length = 50)
+    private String productSize;
+
     @Column(name = "product_price",nullable = false)
     private BigDecimal productPrice;
 
     @Column(name = "stock_quantity")
     private int stockQuantity;
-
+ 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")

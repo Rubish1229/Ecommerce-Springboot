@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -23,12 +24,13 @@ public class Payment {
     private LocalDate paymentDate;
 
     @Column(name = "payment_amt")
-    private Double paymentAmount;
+    private BigDecimal paymentAmount;
 
     @Column(name = "payment_method")
     private String paymentMethod;
 
     private String status;
+
 
 
     @OneToOne
