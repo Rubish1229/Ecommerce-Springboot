@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -25,7 +26,7 @@ public class OrderItem {
     private Integer orderQuantity;
 
     @Column(name = "order_price")
-    private Double orderPrice;
+    private BigDecimal orderPrice;
 
     @ManyToOne
     @JoinColumn(name = "order_id")

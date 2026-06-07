@@ -1,6 +1,6 @@
 package com.rubish.ecommerce.controller;
 
-import com.rubish.ecommerce.dto.PaymentRequest;
+import com.rubish.ecommerce.dto.PaymentRequestDto;
 import com.rubish.ecommerce.model.*;
 import com.rubish.ecommerce.repository.CustomerRepo;
 import com.rubish.ecommerce.repository.OrderRepo;
@@ -8,8 +8,8 @@ import com.rubish.ecommerce.repository.PaymentRepo;
 import com.rubish.ecommerce.repository.ProductRepo;
 import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
-import com.stripe.param.checkout.SessionCreateParams;
 import org.springframework.http.ResponseEntity;
+import com.stripe.param.checkout.SessionCreateParams;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -38,7 +38,14 @@ public class RestPaymentController {
 
 
     @PostMapping("/create-checkout-session")
-    public Map<String ,Object> createCheckoutSession(@RequestBody PaymentRequest request) throws StripeException {
+    public Map<String ,Object> createCheckoutSession(@RequestBody PaymentRequestDto request) throws StripeException {
+
+        System.out.println("RAW REQUEST: " + request);   // 👈 ADD HERE
+
+        System.out.println("CustomerId = " + request.getCustomerId());
+        System.out.println("ProductId = " + request.getProductId());
+        System.out.println("Quantity = " + request.getQuantity());
+
 
         SessionCreateParams params = SessionCreateParams.builder()
                 .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
@@ -73,8 +80,11 @@ public class RestPaymentController {
         return ResponseEntity.ok(result).getBody();
     }
 
+
+
     @GetMapping("/success")
     public String getSuccess(@RequestParam("session_id") String sessionId) throws Exception{
+
         Session session=Session.retrieve(sessionId);
 
         Long customerId=Long.parseLong(session.getMetadata().get("customerId"));
@@ -104,6 +114,11 @@ public class RestPaymentController {
 
 
         OrderItem item = new OrderItem();
+        item.setProduct(product);
+        item.setOrderQuantity(quantity);
+        item.setOrderPrice(product.getProductPrice());
+        item.setOrder(order);
+
         Payment payment = new Payment();
         payment.setPaymentDate(LocalDate.now());
         payment.setPaymentAmount(total);
@@ -115,7 +130,12 @@ public class RestPaymentController {
         order.setPayment(payment);
 
         orderRepo.save(order);
+//
+        System.out.println("SESSION METADATA:");
+        System.out.println(session.getMetadata());
 
+         customerId = Long.parseLong(session.getMetadata().get("customerId"));
+        System.out.println("Customer ID = " + customerId);
         return "payment successful";
     }
 

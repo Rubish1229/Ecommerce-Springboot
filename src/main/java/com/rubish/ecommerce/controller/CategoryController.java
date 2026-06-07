@@ -19,7 +19,9 @@ public class CategoryController {
     }
 
     @GetMapping
-    public String openCategory(){
+    public String openCategory(Model model){
+        model.addAttribute("categoryList",categoryService.getAllCategories());
+
         return "sidebar/addCategory";
     }
 

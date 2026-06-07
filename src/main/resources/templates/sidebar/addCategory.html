@@ -75,7 +75,9 @@
         button:hover{
             background: #0056b3;
         }
-
+.delete-btn button{
+    background-color: #B12704;
+}
 
     </style>
     <link rel="stylesheet" th:href="@{/css/sidebar.css}">
@@ -103,6 +105,21 @@
             <button type="submit">Add Category</button>
         </form>
     </div>
+
+        <div class="categpry-table">
+            <table th:each="category : ${categoryList}" style="border: 1px solid #ccc;cellpadding:10px;margin:auto;">
+                <th>
+                    <td>Category name</td>
+                    <td>Action</td>
+                </th>
+                <tr>
+                    <td th:text="${category.categoryName}"></td>
+                    <td>
+                        <button class="delete-btn" style="background-color: #B12704">Delete</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 

@@ -6,6 +6,8 @@ import com.rubish.ecommerce.repository.CustomerRepo;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.util.List;
+
 @Service
 public class CustomerService {
     private final CustomerRepo customerRepo;
@@ -38,5 +40,9 @@ public class CustomerService {
     }
 
 
-
+//    public List<CustomerDto> getAllCustomers() {
+//        Customer customer=customerRepo.findAll();
+//
+//        return 1;
+//    }
 }
