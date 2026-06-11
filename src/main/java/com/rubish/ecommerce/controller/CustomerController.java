@@ -5,6 +5,8 @@ import com.rubish.ecommerce.dto.ProductDto;
 import com.rubish.ecommerce.repository.CustomerRepo;
 import com.rubish.ecommerce.service.CustomerService;
 import com.rubish.ecommerce.service.ProductService;
+import com.stripe.model.checkout.Session;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,10 +31,13 @@ public class CustomerController {
     }
 
     @PostMapping("/login")
-    public String customerLogin(@RequestParam String email, @RequestParam String password, Model model){
+    public String customerLogin(@RequestParam String email, @RequestParam String password,
+                                Model model,
+                                HttpSession session){
        CustomerDto customerDto= customerService.findByEmail(email);
 
        if(customerDto!=null && customerDto.getPassword().equals(password)){
+           session.setAttribute("customer",customerDto);
            return "redirect:/customer/HomePage";
        }else {
            model.addAttribute("error","Invalid email and password");
@@ -49,16 +54,28 @@ public class CustomerController {
 
 
     @GetMapping("/productDetail/{id}")
-    public String getProductById(@PathVariable Long id,Model model){
+    public String getProductById(@PathVariable Long id,Model model,HttpSession session){
        ProductDto productDto= productService.getProductById(id);
+       CustomerDto customerDto=(CustomerDto) session.getAttribute("customer");
+        if (customerDto == null) {
+            return "redirect:/customer/login";
+        }
         model.addAttribute("product",productDto);
+        model.addAttribute("customer",customerDto);
         return "customer/productDetail";
     }
 
-    @PostMapping("/payment")
-    public String paymentCardPage(@PathVariable Long id,Model model){
+    @PostMapping("/payment/{id}")
+    public String paymentCardPage(@PathVariable Long id,Model model,HttpSession session){
         ProductDto productDto=productService.getProductById(id);
         model.addAttribute("productList",productDto);
+
+        CustomerDto customerDto=(CustomerDto) session.getAttribute("customer");
+        if (customerDto == null) {
+            return "redirect:/customer/login";
+        }
+
+        model.addAttribute("customer",customerDto);
         return "customer/paymentCard";
     }
 

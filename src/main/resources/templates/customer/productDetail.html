@@ -119,7 +119,20 @@
 
 
         <a th:href="@{/api/payment/{id}(id=${product.productId})}" style="text-decoration: none; color: black"> <button class="buy-btn">Buy Now</button></a>
-        <a href="#"><button class="cart-btn">Add to Cart</button></a>
+
+        <form th:action="@{/api/cart/add}" method="post">
+            <input type="hidden" name="productId" th:value="${product.productId}">
+            <input type="hidden" name="customerId" th:value="${customer.customerId}">
+            <input type="hidden"
+                   name="customerId"
+                   th:value="${customer != null ? customer.customerId : ''}">
+
+            <input type="hidden" name="quantity" value="1">
+
+            <button type="submit" class="cart-btn">
+                Add to Cart
+            </button>
+        </form>
     </div>
 </div>
 

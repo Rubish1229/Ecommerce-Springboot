@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 public class CustomerDto {
 
-    private Long customer_id;
+    private Long customerId;
     private String customerName;
     private String email;
     private String password;

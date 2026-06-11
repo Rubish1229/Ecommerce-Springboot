@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CartDto {
+public class AddToCartDto {
 
     private Long customerId;
     private Long productId;
